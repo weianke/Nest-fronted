@@ -1,8 +1,7 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import { resolve } from 'path';
-import { proxyConfig } from './src/proxy/index';
-console.log('proxyObj', proxyConfig);
+
 function pathResolve(dir: string) {
   return resolve(process.cwd(), '.', dir);
 }
@@ -17,7 +16,11 @@ export default defineConfig({
   },
   server: {
     port: 4000,
-    proxy: proxyConfig.proxyObj
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:3000'
+      }
+    }
   },
   css: {
     preprocessorOptions: {
